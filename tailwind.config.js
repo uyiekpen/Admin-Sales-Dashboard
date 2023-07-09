@@ -15,6 +15,9 @@ module.exports = {
       colors: {
         btnblue: "#5173D2",
       },
+      fontFamily: {
+        poppins: ["Poppins", "sans-serif"],
+      },
     },
   },
   plugins: [],
