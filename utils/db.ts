@@ -1,10 +1,15 @@
-import mongoose from "mongoose";
+import mongoose, { ConnectOptions } from "mongoose";
 
 export async function connect() {
   try {
     await mongoose.connect(
-      "mongodb+srv://tribinnovtalent:tribinnovtalent@cluster0.svw6ekc.mongodb.net/"
+      "mongodb+srv://tribinnovtalent:tribinnovtalent@cluster0.svw6ekc.mongodb.net/",
+      {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+      } as ConnectOptions
     );
+
     const connection = mongoose.connection;
 
     connection.on("connected", () => {

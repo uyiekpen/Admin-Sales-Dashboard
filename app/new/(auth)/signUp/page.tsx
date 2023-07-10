@@ -47,7 +47,6 @@ export default function SignupPage() {
     <div className="flex flex-col items-center justify-center min-h-screen py-2">
       <CustomCard style="border-[2px] py-8 px-4 md:px-12 shadow-sm bg-white flex justify-center items-center rounded-md">
         <h1>{loading ? "Processing" : "Signup"}</h1>
-        <hr />
         <div className="mt-1">
           <label htmlFor="username">username</label>
           <InputForm

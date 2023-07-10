@@ -11,6 +11,7 @@ export interface InPutFormProps {
 
 export interface LabelProps {
   title: string;
+  htmlFor: string
 }
 
 export interface CustomButtonProps {
