@@ -2,6 +2,6 @@ import InputForm from "./InputForm";
 import Label from "./Label";
 import CustomButton from "./CustomButton";
 import CustomCard from "./CustomCard";
-import Header from "./Nav/Header"
+import Nav from "./Nav/Nav"
 
-export { InputForm, Label, CustomButton, CustomCard, Header };
+export { InputForm, Label, CustomButton, CustomCard, Nav };

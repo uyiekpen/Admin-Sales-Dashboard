@@ -1,4 +1,4 @@
-import { IconBaseProps, IconType } from "react-icons";
+import { ReactNode } from "react";
 import { SiMicrosoftacademic } from "react-icons/si";
 import { FaMoneyBillAlt } from "react-icons/fa";
 import { IoIosNotifications } from "react-icons/io";
@@ -8,41 +8,43 @@ import { MdDashboard } from "react-icons/md";
 import { AiOutlineDisconnect } from "react-icons/ai";
 
 interface NavCon {
-  name: string;
-  icon: IconType;
+  title: string;
+  icon: ReactNode; // Specify the prop type as ReactNode
   to: string;
+  gap?: boolean;
 }
 
 export const SideBarItem: NavCon[] = [
   {
-    name: "Dashboard",
-    icon: (prop: IconBaseProps) => <MdDashboard />,
+    title: "Dashboard",
+    icon: <MdDashboard />,
     to: "/admin-dashboard",
   },
   {
-    name: "Product list",
-    icon: (prop: IconBaseProps) => <SiMicrosoftacademic />,
+    title: "Product list",
+    icon: <SiMicrosoftacademic />,
     to: "/admin-dashboard/createteacher",
+    gap: true,
   },
   {
-    name: "Product Edit",
-    icon: (prop: IconBaseProps) => <FaMoneyBillAlt />,
+    title: "Product Edit",
+    icon: <FaMoneyBillAlt />,
     to: "/admin-dashboard/createstudent",
   },
   {
-    name: "New Product",
-    icon: (prop: IconBaseProps) => <CgCommunity />,
+    title: "New Product",
+    icon: <CgCommunity />,
     to: "/admin-dashboard/expenses",
   },
   {
-    name: "Order list",
-    icon: (prop: IconBaseProps) => <HiDocumentReport />,
+    title: "Order list",
+    icon: <HiDocumentReport />,
     to: "/admin-dashboard/report",
+    gap: true,
   },
-
   {
-    name: "Order Details",
-    icon: (prop: IconBaseProps) => <IoIosNotifications />,
+    title: "Order Details",
+    icon: <IoIosNotifications />,
     to: "/admin-dashboard/notifications",
   },
 ];

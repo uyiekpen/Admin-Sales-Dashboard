@@ -1,35 +1,217 @@
-import React from "react";
+"use client";
+import React, { Fragment, useRef, useState } from "react";
+import { Menu, Popover, Transition } from "@headlessui/react";
+import {
+  HiOutlineBell,
+  HiOutlineSearch,
+  HiOutlineChatAlt,
+} from "react-icons/hi";
+import { MdDashboard } from "react-icons/md";
+import classNames from "classnames";
 import { SideBarItem } from "./RouterSide";
-import Image from "next/image";
-import Link from "next/link";
 
-interface Iprops {
-  changeFalse: () => void;
-  change?: boolean;
-}
+const SideNav = () => {
+  const [open, setOpen] = useState(true);
 
-const SideBar: React.FC<Iprops> = ({ changeFalse }) => {
   return (
-    <div>
-      <div className="p-4">
-        {SideBarItem.map((props, index) => (
-          <Link
-            href={props.to}
-            onClick={changeFalse}
-            className="flex items-center mt-4 pl-4"
-          >
-            <div className="mr-3 text-2xl text-white">{props.icon(props)}</div>
-            {/* <span>{props.name}</span> */}
-          </Link>
-        ))}
+    <div className="fixed">
+      <div className="flex ">
+        <div
+          className={`border-r-[2px]   ${
+            open ? "w-64" : "w-20 "
+          } bg-dark-purple h-screen  p-5 relative duration-300`}
+        >
+          <div className="flex gap-x-4 items-center b">
+            <img
+              onClick={() => setOpen(!open)}
+              src="./logo.jpg"
+              className={`cursor-pointer w-8 h-8 object-fill rounded-full duration-500 ${
+                open && "rotate-[360deg]"
+              }`}
+            />
+            <h1
+              className={`text-black origin-left font-medium text-xl duration-200 ${
+                !open && "scale-0"
+              }`}
+            >
+              Sales..
+            </h1>
+          </div>
+          <ul className="pt-6">
+            {SideBarItem.map((Menu, index) => (
+              <li
+                key={index}
+                className={`flex  rounded-md p-2 cursor-pointer hover:bg-light-white text-black text-sm items-center gap-x-4 
+              ${Menu.gap ? "mt-9" : "mt-2"} ${
+                  index === 0 && "bg-light-white"
+                } `}
+              >
+                <div className="mr-3 text-2xl text-black">{Menu.icon}</div>
+                <span
+                  className={`${!open && "hidden"} origin-left duration-200`}
+                >
+                  {Menu.title}
+                </span>
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div className="h-screen flex-1 ">
+          <div className="">
+            <div className="bg-white h-16 px-4 flex items-center border-b border-gray-200 md:justify-between justify-end">
+              <div className="relative hidden md:block">
+                <HiOutlineSearch
+                  fontSize={20}
+                  className="text-gray-400 absolute top-1/2 left-3 -translate-y-1/2"
+                />
+                <input
+                  type="text"
+                  placeholder="Search..."
+                  className="text-sm focus:outline-none active:outline-none border border-gray-300 w-[24rem] h-10 pl-11 pr-4 rounded-sm"
+                />
+              </div>
+              <div className="flex items-center gap-2 mr-2">
+                <Popover className="relative hidden md:block">
+                  {({ open }) => (
+                    <>
+                      <Popover.Button
+                        className={classNames(
+                          open && "bg-gray-100",
+                          "group inline-flex items-center rounded-sm p-1.5 text-gray-700 hover:text-opacity-100 focus:outline-none active:bg-gray-100"
+                        )}
+                      >
+                        <HiOutlineChatAlt fontSize={24} />
+                      </Popover.Button>
+                      <Transition
+                        as={Fragment}
+                        enter="transition ease-out duration-200"
+                        enterFrom="opacity-0 translate-y-1"
+                        enterTo="opacity-100 translate-y-0"
+                        leave="transition ease-in duration-150"
+                        leaveFrom="opacity-100 translate-y-0"
+                        leaveTo="opacity-0 translate-y-1"
+                      >
+                        <Popover.Panel className="absolute right-0 z-10 mt-2.5 transform w-80">
+                          <div className="bg-white rounded-sm shadow-md ring-1 ring-black ring-opacity-5 px-2 py-2.5">
+                            <strong className="text-gray-700 font-medium">
+                              Messages
+                            </strong>
+                            <div className="mt-2 py-1 text-sm">
+                              This is messages panel.
+                            </div>
+                          </div>
+                        </Popover.Panel>
+                      </Transition>
+                    </>
+                  )}
+                </Popover>
+                <Popover className="relative hidden md:block">
+                  {({ open }) => (
+                    <>
+                      <Popover.Button
+                        className={classNames(
+                          open && "bg-gray-100",
+                          "group inline-flex items-center rounded-sm p-1.5 text-gray-700 hover:text-opacity-100 focus:outline-none active:bg-gray-100"
+                        )}
+                      >
+                        <HiOutlineBell fontSize={24} />
+                      </Popover.Button>
+                      <Transition
+                        as={Fragment}
+                        enter="transition ease-out duration-200"
+                        enterFrom="opacity-0 translate-y-1"
+                        enterTo="opacity-100 translate-y-0"
+                        leave="transition ease-in duration-150"
+                        leaveFrom="opacity-100 translate-y-0"
+                        leaveTo="opacity-0 translate-y-1"
+                      >
+                        <Popover.Panel className="absolute right-0 z-10 mt-2.5 transform w-80">
+                          <div className="bg-white rounded-sm shadow-md ring-1 ring-black ring-opacity-5 px-2 py-2.5">
+                            <strong className="text-gray-700 font-medium">
+                              Notifications
+                            </strong>
+                            <div className="mt-2 py-1 text-sm">
+                              This is notification panel.
+                            </div>
+                          </div>
+                        </Popover.Panel>
+                      </Transition>
+                    </>
+                  )}
+                </Popover>
+                <Menu as="div" className="relative">
+                  <div>
+                    <Menu.Button className="ml-2 bg-gray-800 flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-neutral-400">
+                      <span className="sr-only">Open user menu</span>
+                      <div
+                        className="h-10 w-10 rounded-full bg-sky-500 bg-cover bg-no-repeat bg-center"
+                        style={{
+                          backgroundImage:
+                            'url("https://source.unsplash.com/80x80?face")',
+                        }}
+                      >
+                        <span className="sr-only">Marc Backes</span>
+                      </div>
+                    </Menu.Button>
+                  </div>
+                  <Transition
+                    as={Fragment}
+                    enter="transition ease-out duration-100"
+                    enterFrom="transform opacity-0 scale-95"
+                    enterTo="transform opacity-100 scale-100"
+                    leave="transition ease-in duration-75"
+                    leaveFrom="transform opacity-100 scale-100"
+                    leaveTo="transform opacity-0 scale-95"
+                  >
+                    <Menu.Items className="origin-top-right z-10 absolute right-0 mt-2 w-48 rounded-sm shadow-md p-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
+                      <Menu.Item>
+                        {({ active }) => (
+                          <div
+                            // onClick={() => router('/profile')}
+                            className={classNames(
+                              active && "bg-gray-100",
+                              "active:bg-gray-200 rounded-sm px-4 py-2 text-gray-700 cursor-pointer focus:bg-gray-200"
+                            )}
+                          >
+                            Your Profile
+                          </div>
+                        )}
+                      </Menu.Item>
+                      <Menu.Item>
+                        {({ active }) => (
+                          <div
+                            // onClick={() => router('/settings')}
+                            className={classNames(
+                              active && "bg-gray-100",
+                              "active:bg-gray-200 rounded-sm px-4 py-2 text-gray-700 cursor-pointer focus:bg-gray-200"
+                            )}
+                          >
+                            Settings
+                          </div>
+                        )}
+                      </Menu.Item>
+                      <Menu.Item>
+                        {({ active }) => (
+                          <div
+                            className={classNames(
+                              active && "bg-gray-100",
+                              "active:bg-gray-200 rounded-sm px-4 py-2 text-gray-700 cursor-pointer focus:bg-gray-200"
+                            )}
+                          >
+                            Sign out
+                          </div>
+                        )}
+                      </Menu.Item>
+                    </Menu.Items>
+                  </Transition>
+                </Menu>
+              </div>
+            </div>
+          </div>{" "}
+        </div>
       </div>
-
-      {/* <div className="h-20 w-full flex justify-center">
-        <Image src={pix} alt="Logo" className="w-3/4 h-auto" />
-        <div>logo</div>
-      </div> */}
     </div>
   );
 };
 
-export default SideBar;
+export default SideNav;
